@@ -1,0 +1,78 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  tests:
+    name: py-${{ matrix.python-version }}:pytest-${{ matrix.pytest-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [
+          "3.7",
+          "3.8",
+          "3.9",
+          "3.10",
+          "3.11",
+        ]
+        pytest-version: [
+          "7.0.*",
+          "7.1.*",
+          "7.2.*",
+        ]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install pytest==${{ matrix.pytest-version }}
+          python -m pip install -e .
+
+      - name: Tests
+        shell: bash
+        run: |
+          pytest -s .
+
+  platform:
+    # Test devel setup on different platforms.
+    name: Platform-${{ matrix.os }}
+    needs: [ tests ]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+
+      - name: Development setup on platform ${{ matrix.os }}
+        run: |
+          python -m pip install -U pip
+          python -m pip install pytest
+          python -m pip install -e .
+
+      - name: Tests
+        run: |
+          pytest -s .
