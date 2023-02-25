@@ -3,6 +3,7 @@ Pytest mark to override a value of an environment variable.
 
 ![Lint](https://github.com/karlosss/pytest-override-env-var/actions/workflows/lint.yml/badge.svg)
 ![Tests](https://github.com/karlosss/pytest-override-env-var/actions/workflows/test.yml/badge.svg)
+![](https://img.shields.io/github/license/karlosss/pytest-override-env-var)
 
 ## The problem
 
