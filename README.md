@@ -1,9 +1,10 @@
 # pytest-override-env-var
 Pytest mark to override a value of an environment variable.
 
+[![PyPI version](https://badge.fury.io/py/pytest-override-env-var.svg)](https://badge.fury.io/py/pytest-override-env-var)
+![License](https://img.shields.io/github/license/karlosss/pytest-override-env-var)
 ![Lint](https://github.com/karlosss/pytest-override-env-var/actions/workflows/lint.yml/badge.svg)
 ![Tests](https://github.com/karlosss/pytest-override-env-var/actions/workflows/test.yml/badge.svg)
-![](https://img.shields.io/github/license/karlosss/pytest-override-env-var)
 
 ## The problem
 
